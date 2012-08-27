@@ -85,12 +85,25 @@ class PageBlock implements PageBlockInterface
     
     public function setType($type)
     {
+        if (!in_array($type, self::getTypes())){
+            throw new \InvalidArgumentException(
+                sprintf('PageBlock type "%s" is not valid', $type)
+            );
+        }
+        
         $this->type = (string) $type;
     }
     
     public function getType()
     {
         return $this->type;
+    }
+    
+    public static function getTypes()
+    {
+        return array(
+            self::TYPE_SORTABLE => self::TYPE_SORTABLE
+        );
     }
     
     public function setEnabled($bool)

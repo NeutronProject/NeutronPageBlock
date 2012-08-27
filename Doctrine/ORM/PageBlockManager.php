@@ -1,7 +1,7 @@
 <?php
 namespace Neutron\Widget\PageBlockBundle\Doctrine\ORM;
 
-use Neutron\Widget\FeaturedPageBundle\Model\PageBlockInterface;
+use Neutron\Widget\PageBlockBundle\Model\PageBlockInterface;
 
 use Doctrine\ORM\EntityManager;
 
@@ -54,5 +54,6 @@ class PageBlockManager implements PageBlockManagerInterface
     {
         return $this->repository->getPageBlockManagementQueryBuilder();
     }
+    
 }
 

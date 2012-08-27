@@ -5,6 +5,9 @@ use Neutron\Bundle\FormBundle\Model\MultiSelectSortableInterface;
 
 interface PageBlockInterface
 {
+    
+    const TYPE_SORTABLE = 'type.sortable';
+    
     public function setTitle($title);
     
     public function getTitle();

@@ -1,0 +1,35 @@
+{% extends "NeutronAdminBundle::layout.html.twig" %}
+
+{% block javascripts %}
+    {% do neutron_append_javascript('bundles/neutronpageblock/js/update.js') %}
+    {{ parent() }}
+{% endblock %}
+
+{% block headTitle %} {% trans from "NeutronPageBlockBundle" %}head_title{% endtrans %} {% endblock %}
+
+{% block headDesc %}
+    <h1 class="icon dashboard">
+        {% trans from "NeutronPageBlockBundle" %}header{% endtrans %} <small>some description</small>
+    </h1>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="grid12">
+		<article class="panel">
+		 	<header class="divider">
+		 	    <h2>{% trans from "NeutronPageBlockBundle" %}subheader{% endtrans %}</h2>
+		 	</header>
+
+		 	{{ neutron_form_tabs(
+		 	    form, 
+		 	    {'submit_label': 'form.save', 'translation_domain': 'NeutronPageBlockBundle'},
+		 	    {
+		 	        'cancel': {'label': 'form.cancel', 'style': 'btn action', 'url': path('neutron_page_block.administration')}
+		 	    }
+		 	) }}
+		</article>
+
+	</div>
+</div>
+{% endblock %}

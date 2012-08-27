@@ -9,6 +9,10 @@
         <parameter key="neutron_page_block.datagrid.page_block_management.class">Neutron\Widget\PageBlockBundle\DataGrid\PageBlockManagement</parameter>
         <parameter key="neutron_page_block.datagrid.page_listing.class">Neutron\Widget\PageBlockBundle\DataGrid\PageListing</parameter>
         <parameter key="neutron_page_block.manager.default.class">Neutron\Widget\PageBlockBundle\Doctrine\ORM\PageBlockManager</parameter>
+        <parameter key="neutron_page_block.form.type.page_block.class">Neutron\Widget\PageBlockBundle\Form\Type\PageBlockType</parameter>
+        <parameter key="neutron_page_block.form.type.page_block.general.class">Neutron\Widget\PageBlockBundle\Form\Type\PageBlock\GeneralType</parameter>
+        <parameter key="neutron_page_block.form.type.page_block.pages.class">Neutron\Widget\PageBlockBundle\Form\Type\PageBlock\PagesType</parameter>
+        <parameter key="neutron_page_block.form.handler.page_block.default.class">Neutron\Widget\PageBlockBundle\Form\Handler\PageBlockHandler</parameter>
     </parameters>
     
 	<services>
@@ -66,6 +70,44 @@
         >
         	<tag name="neutron_data_grid.datagrid" alias="page_listing" />
         </service>
+        
+        <service id="neutron_page_block.form.page_block" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument>%neutron_page_block.page_block.form.name%</argument>
+            <argument>%neutron_page_block.form.type.page_block%</argument>
+        </service>
+        
+        <service id="neutron_page_block.form.type.page_block" class="%neutron_page_block.form.type.page_block.class%">
+		    <tag name="form.type" alias="neutron_page_block" />
+		</service>
+        
+        <service id="neutron_page_block.form.type.page_block.general" class="%neutron_page_block.form.type.page_block.general.class%">
+		    <argument>%neutron_page_block.block_class%</argument>
+		    <tag name="form.type" alias="neutron_page_block_general" />
+		</service>
+        
+        <service id="neutron_page_block.form.type.page_block.pages" class="%neutron_page_block.form.type.page_block.pages.class%">
+		    <argument type="service" id="neutron_page_block.datagrid.factory.page_listing"/>
+		    <argument>%neutron_page_block.block_class%</argument>
+		    <argument>%neutron_page_block.block_reference_class%</argument>
+		    <argument>%neutron_page.page_class%</argument>
+		    <tag name="form.type" alias="neutron_page_block_pages" />
+		</service>
+		
+		<service id="neutron_page_block.form.handler.page_block.default" 
+            class="%neutron_page_block.form.handler.page_block.default.class%" 
+            scope="request" 
+            public="false">
+			
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="neutron_page_block.form.page_block" />
+            <argument type="service" id="neutron_component.form.helper.form_helper" />
+            <argument type="service" id="request" />
+            <argument type="service" id="router" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="neutron_page_block.manager" />
+            <argument type="service" id="neutron_admin.acl.manager" />
+        </service>
+    
         
     </services>
     

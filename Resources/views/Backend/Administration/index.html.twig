@@ -15,6 +15,11 @@
 		 	<header class="divider">
 		 	    <h2>{% trans from "NeutronPageBlockBundle" %}subheader{% endtrans %}</h2>
 		 	</header>
+		 	<div id="messages">
+		 	    {% for flashMessage in app.session.flashbag.get('neutron.form.success') %}
+		 	        <div class="msg {{ flashMessage.type }}"><p> {{ flashMessage.body }}  </p><a class="close">×</a></div>
+		 	    {% endfor %}	
+		 	</div>
             {{ neutron_datagrid(grid) }}
 		</article>
 

@@ -97,6 +97,12 @@ class PageBlockManagement
             ->enablePager(true)
             ->enableViewRecords(true)
             ->enableSearchButton(true)
+            ->enableAddButton(true)
+            ->setAddBtnUri($this->router->generate('neutron_page_block.update', array(), true))
+            ->enableEditButton(true)
+            ->setEditBtnUri($this->router->generate('neutron_page_block.update', array('id' => '{id}'), true))
+            ->enableDeleteButton(true)
+            ->setDeleteBtnUri($this->router->generate('neutron_page_block.delete', array('id' => '{id}'), true))
             ->setQueryHints(array(
                 Query::HINT_CUSTOM_OUTPUT_WALKER 
                     => 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker',

@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('neutron_page_block');
 
         $this->addGeneralConfigurations($rootNode);
+        $this->addFormSection($rootNode);
 
         return $treeBuilder;
     }
@@ -38,6 +39,23 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('block_class')->defaultValue('Neutron\Widget\PageBlockBundle\Entity\PageBlock')->end()
                 ->scalarNode('block_reference_class')->defaultValue('Neutron\Widget\PageBlockBundle\Entity\PageBlockReference')->end()
     
+            ->end()
+        ;
+    }
+    
+    private function addFormSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('form')
+                    ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('type')->defaultValue('neutron_page_block')->end()
+                            ->scalarNode('handler')->defaultValue('neutron_page_block.form.handler.page_block.default')->end()
+                            ->scalarNode('name')->defaultValue('neutron_page_block')->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
     }

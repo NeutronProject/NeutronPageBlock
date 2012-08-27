@@ -1,8 +1,6 @@
 <?php
 namespace Neutron\Widget\PageBlockBundle\Model;
 
-use Neutron\Widget\FeaturedPageBundle\Model\PageBlockInterface;
-
 use Neutron\Bundle\FormBundle\Model\MultiSelectSortableInterface;
 
 interface PageBlockManagerInterface
