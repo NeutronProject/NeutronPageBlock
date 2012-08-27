@@ -24,5 +24,14 @@ class NeutronPageBlockExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+        
+        if ($config['enable'] === false){
+            return;
+        }
+        
+        $container->setAlias('neutron_page_block.controller.backend.administration', $config['controller_administration']);
+        $container->setAlias('neutron_page_block.manager', $config['manager']);
+        $container->setParameter('neutron_page_block.block_class', $config['block_class']);
+        $container->setParameter('neutron_page_block.block_reference_class', $config['block_reference_class']);
     }
 }

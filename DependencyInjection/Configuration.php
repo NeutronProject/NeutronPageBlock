@@ -2,6 +2,8 @@
 
 namespace Neutron\Widget\PageBlockBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -20,10 +22,23 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('neutron_page_block');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $this->addGeneralConfigurations($rootNode);
 
         return $treeBuilder;
+    }
+    
+    private function addGeneralConfigurations(ArrayNodeDefinition $node)
+    {
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->booleanNode('enable')->defaultFalse()->end()
+                ->scalarNode('controller_administration')->defaultValue('neutron_page_block.controller.backend.administration.default')->end()
+                ->scalarNode('manager')->defaultValue('neutron_page_block.manager.default')->end()
+                ->scalarNode('block_class')->defaultValue('Neutron\Widget\PageBlockBundle\Entity\PageBlock')->end()
+                ->scalarNode('block_reference_class')->defaultValue('Neutron\Widget\PageBlockBundle\Entity\PageBlockReference')->end()
+    
+            ->end()
+        ;
     }
 }
