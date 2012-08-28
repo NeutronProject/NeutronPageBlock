@@ -9,6 +9,12 @@
  */
 namespace Neutron\Widget\PageBlockBundle\Entity\Repository;
 
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
+use Neutron\ComponentBundle\Doctrine\ORM\Query\TreeWalker\AclWalker;
+
+use Doctrine\ORM\Query;
+
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 
 class PageBlockRepository extends TranslationRepository
@@ -24,5 +30,44 @@ class PageBlockRepository extends TranslationRepository
         ;
         
         return $qb;
+    }
+    
+    public function getPageBlockQueryBuilder($id)
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb
+            ->select('b, r, p')
+            ->join('b.pageReferences', 'r')
+            ->join('r.reference', 'p')
+            ->where('b.id = ?1 AND b.enabled = ?2 AND r.isActive = ?3')
+            ->orderBy('r.position', 'ASC')
+            ->setParameters(array(
+                1 => $id,
+                2 => true,
+                3 => true        
+           ))
+        ;
+        
+        return $qb;
+    }
+    
+    public function getPageBlockQuery($id, $locale)
+    {
+        $query = $this->getPageBlockQueryBuilder($id)->getQuery();
+        $query->setHint(
+            Query::HINT_CUSTOM_OUTPUT_WALKER, 
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $locale
+        );
+
+        return $query;
+    }
+    
+    public function getPageBlock($id, $locale)
+    {
+        return $this->getPageBlockQuery($id, $locale)->getSingleResult();
     }
 }

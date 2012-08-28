@@ -65,6 +65,16 @@ class PageBlockReference implements MultiSelectSortableInterface
         return $this->reference->getTitle();
     }
     
+    public function getContent()
+    {
+        return $this->reference->getContent();
+    }
+    
+    public function getCategory()
+    {
+        return $this->reference->getCategory();
+    }
+    
     public function setPosition($position)
     {
         $this->position = (int) $position;

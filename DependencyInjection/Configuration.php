@@ -35,9 +35,11 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('enable')->defaultFalse()->end()
                 ->scalarNode('controller_administration')->defaultValue('neutron_page_block.controller.backend.administration.default')->end()
+                ->scalarNode('controller_front')->defaultValue('neutron_page_block.controller.frontend.default')->end()
                 ->scalarNode('manager')->defaultValue('neutron_page_block.manager.default')->end()
                 ->scalarNode('block_class')->defaultValue('Neutron\Widget\PageBlockBundle\Entity\PageBlock')->end()
                 ->scalarNode('block_reference_class')->defaultValue('Neutron\Widget\PageBlockBundle\Entity\PageBlockReference')->end()
+                ->scalarNode('template')->defaultValue('NeutronPageBlockBundle:Frontend\Default:index.html.twig')->end()
     
             ->end()
         ;

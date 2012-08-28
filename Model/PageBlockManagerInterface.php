@@ -1,9 +1,11 @@
 <?php
 namespace Neutron\Widget\PageBlockBundle\Model;
 
+use Neutron\Widget\ContactBundle\Model\ContactManagerInterface;
+
 use Neutron\Bundle\FormBundle\Model\MultiSelectSortableInterface;
 
-interface PageBlockManagerInterface
+interface PageBlockManagerInterface extends ContactManagerInterface
 {
     public function create();
     

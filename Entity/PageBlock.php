@@ -38,7 +38,8 @@ class PageBlock implements PageBlockInterface
     
     /**
      * @var string 
-     *
+     * 
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", name="title", length=255, nullable=true, unique=false)
      */
     protected $title; 
@@ -48,7 +49,7 @@ class PageBlock implements PageBlockInterface
      *
      * @ORM\Column(type="string", name="block_type", length=50, nullable=false, unique=false)
      */
-    protected $type = 'default';
+    protected $type;
     
     /**
      * @var boolean 

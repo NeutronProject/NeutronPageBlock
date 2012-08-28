@@ -1,0 +1,13 @@
+<div class="sidebar-widget">
+     <p class="widget-heading">{{ block.title }}</p>
+     {% for page in block.pageReferences %}
+         {% if is_granted('VIEW', page.category) %}
+             <p class="recent-post-widget-title">
+                 <a href="{{ path('neutron_page.distributor', {'slug': page.category.slug}) }}">{{ page.name }}</a>
+             </p>
+             <p class="recent-post-widget-text">
+                 <a href="{{ path('neutron_page.distributor', {'slug': page.category.slug}) }}">{{ page.content|striptags }}</a>
+             </p>
+         {% endif %}
+     {% endfor %}
+</div>

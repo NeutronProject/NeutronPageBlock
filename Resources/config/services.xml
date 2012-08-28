@@ -5,7 +5,10 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+        <parameter key="neutron_page_block.widget.builder.class">Neutron\Widget\PageBlockBundle\PageBlockWidget</parameter>
+        <parameter key="neutron_page_block.event_listener.main_menu.class">Neutron\Widget\PageBlockBundle\EventListener\MainMenuListener</parameter>
         <parameter key="neutron_page_block.controller.backend.administration.default.class">Neutron\Widget\PageBlockBundle\Controller\Backend\AdministrationController</parameter>
+        <parameter key="neutron_page_block.controller.frontend.default.class">Neutron\Widget\PageBlockBundle\Controller\Frontend\DefaultController</parameter>
         <parameter key="neutron_page_block.datagrid.page_block_management.class">Neutron\Widget\PageBlockBundle\DataGrid\PageBlockManagement</parameter>
         <parameter key="neutron_page_block.datagrid.page_listing.class">Neutron\Widget\PageBlockBundle\DataGrid\PageListing</parameter>
         <parameter key="neutron_page_block.manager.default.class">Neutron\Widget\PageBlockBundle\Doctrine\ORM\PageBlockManager</parameter>
@@ -16,7 +19,33 @@
     </parameters>
     
 	<services>
+        <service id="neutron_page_block.widget.builder" class="%neutron_page_block.widget.builder.class%">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="neutron_layout.widget.factory" />
+            <argument>neutron_page_block.manager</argument>
+        </service>
+        
+        
+        <service id="neutron_page_block.widget" 
+        	class="Neutron\LayoutBundle\Widget\WidgetFactory"
+        	factory-service="neutron_page_block.widget.builder"
+        	factory-method="build"
+        >
+        	<tag name="neutron.widget" alias="neutron.widget.page_block" />
+        </service>
+        
+        <service id="neutron_page_block.event_listener.main_menu" class="%neutron_page_block.event_listener.main_menu.class%">
+        	<argument type="service" id="neutron_page_block.widget" />
+        	<tag name="kernel.event_listener" event="neutron_admin.onMenuConfigure" method="onMenuConfigure"/> 
+        </service>
+	
 	    <service id="neutron_page_block.controller.backend.administration.default" class="%neutron_page_block.controller.backend.administration.default.class%">
+	        <call method="setContainer">
+	            <argument type="service" id="service_container" />
+	        </call>
+	    </service>
+	
+	    <service id="neutron_page_block.controller.frontend.default" class="%neutron_page_block.controller.frontend.default.class%">
 	        <call method="setContainer">
 	            <argument type="service" id="service_container" />
 	        </call>

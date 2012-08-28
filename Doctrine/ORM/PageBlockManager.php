@@ -55,5 +55,22 @@ class PageBlockManager implements PageBlockManagerInterface
         return $this->repository->getPageBlockManagementQueryBuilder();
     }
     
+    public function getInstances()
+    {
+        $instances = array();
+        $entities = $this->repository->findBy(array('enabled' => true), array('title' => 'ASC'));
+        
+        foreach ($entities as $entity){
+            $instances[$entity->getId()] = $entity->getTitle();
+        }
+        
+        return $instances;
+    }
+    
+    public function getPageBlock($id, $locale)
+    {
+        return $this->repository->getPageBlock($id, $locale);
+    }
+    
 }
 
