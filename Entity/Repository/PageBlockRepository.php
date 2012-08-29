@@ -24,9 +24,7 @@ class PageBlockRepository extends TranslationRepository
         $qb = $this->createQueryBuilder('b');
         
         $qb
-            ->select('b.id, b.title, b.type, COUNT(r.id) as num, b.enabled')
-            ->leftJoin('b.pageReferences', 'r')
-            ->groupBy('b.id')
+            ->select('b.id, b.title, b.uniqueName, b.type, b.enabled')
         ;
         
         return $qb;

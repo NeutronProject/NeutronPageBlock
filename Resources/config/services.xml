@@ -16,6 +16,7 @@
         <parameter key="neutron_page_block.form.type.page_block.general.class">Neutron\Widget\PageBlockBundle\Form\Type\PageBlock\GeneralType</parameter>
         <parameter key="neutron_page_block.form.type.page_block.pages.class">Neutron\Widget\PageBlockBundle\Form\Type\PageBlock\PagesType</parameter>
         <parameter key="neutron_page_block.form.handler.page_block.default.class">Neutron\Widget\PageBlockBundle\Form\Handler\PageBlockHandler</parameter>
+        <parameter key="neutron_page_block.form.event_subscriber.page_block.general.class">Neutron\Widget\PageBlockBundle\Form\EventSubscriber\PageBlock\GeneralTypeSubscriber</parameter>
     </parameters>
     
 	<services>
@@ -111,6 +112,7 @@
         
         <service id="neutron_page_block.form.type.page_block.general" class="%neutron_page_block.form.type.page_block.general.class%">
 		    <argument>%neutron_page_block.block_class%</argument>
+		    <argument type="service" id="neutron_page_block.form.event_subscriber.page_block.general" />
 		    <tag name="form.type" alias="neutron_page_block_general" />
 		</service>
         
@@ -137,6 +139,9 @@
             <argument type="service" id="neutron_admin.acl.manager" />
         </service>
     
+    	<service id="neutron_page_block.form.event_subscriber.page_block.general" class="%neutron_page_block.form.event_subscriber.page_block.general.class%">
+		    
+		</service>
         
     </services>
     

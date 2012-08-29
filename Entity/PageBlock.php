@@ -38,6 +38,13 @@ class PageBlock implements PageBlockInterface
     
     /**
      * @var string 
+     *
+     * @ORM\Column(type="string", name="unique_name", length=50, nullable=false, unique=true)
+     */
+    protected $uniqueName;
+    
+    /**
+     * @var string 
      * 
      * @Gedmo\Translatable
      * @ORM\Column(type="string", name="title", length=255, nullable=true, unique=false)
@@ -72,6 +79,16 @@ class PageBlock implements PageBlockInterface
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function setUniqueName($name)
+    {
+        $this->uniqueName = (string) $name;
+    }
+    
+    public function getUniqueName()
+    {
+        return $this->uniqueName;
     }
     
     public function setTitle($title)

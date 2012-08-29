@@ -66,15 +66,6 @@ class PagesType extends AbstractType
     
     /**
      * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::buildView()
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
-        
-    }
-    
-    /**
-     * (non-PHPdoc)
      * @see Symfony\Component\Form.AbstractType::setDefaultOptions()
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -82,7 +73,7 @@ class PagesType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => $this->pageBlockClass,
             'validation_groups' => function(FormInterface $form){
-                return 'default';
+                return array('create', 'update');
             },
         ));
     }

@@ -12,6 +12,10 @@
                 		<td class="actions">{{ record.title }}</td>
                 	</tr>            
                 	<tr>
+                		<td><strong>{{ 'form.uniqueName'|trans({}, 'NeutronPageBlockBundle') }}</strong></td>
+                		<td class="actions">{{ record.uniqueName }}</td>
+                	</tr>            
+                	<tr>
                 		<td><strong>{{ 'form.enabled'|trans({}, 'NeutronPageBlockBundle') }}</strong></td>
                 		<td class="actions">{{ record.enabled|yes_no }}</td>
                 	</tr>            

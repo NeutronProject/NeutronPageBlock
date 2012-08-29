@@ -9,6 +9,8 @@
  */
 namespace Neutron\Widget\PageBlockBundle\Form\Type\PageBlock;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 use Neutron\Widget\PageBlockBundle\Entity\PageBlock;
 
 use Symfony\Component\Form\FormView;
@@ -32,9 +34,13 @@ class GeneralType extends AbstractType
     
     protected $pageBlockClass;
     
-    public function __construct($pageBlockClass)
+    protected $subscriber;
+    
+    public function __construct($pageBlockClass, EventSubscriberInterface $subscriber)
     {
         $this->pageBlockClass = $pageBlockClass;
+        $this->subscriber = $subscriber;
+        
     }
     
     /**
@@ -44,6 +50,10 @@ class GeneralType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('uniqueName', 'text', array(
+                'label' => 'form.iniqueName',
+                'translation_domain' => 'NeutronPageBlockBundle'
+            ))
             ->add('title', 'text', array(
                 'label' => 'form.title',
                 'translation_domain' => 'NeutronPageBlockBundle'
@@ -64,15 +74,8 @@ class GeneralType extends AbstractType
                 'translation_domain' => 'NeutronPageBlockBundle'
             ))
         ;
-    }
-    
-    /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::buildView()
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
         
+        $builder->addEventSubscriber($this->subscriber);
     }
     
     /**
@@ -84,7 +87,11 @@ class GeneralType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => $this->pageBlockClass,
             'validation_groups' => function(FormInterface $form){
-                return 'default';
+                if ($form->getData()->getId()){
+                    return 'update';
+                }
+                
+                return 'create';
             },
         ));
     }

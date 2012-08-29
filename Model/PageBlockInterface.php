@@ -1,9 +1,11 @@
 <?php
 namespace Neutron\Widget\PageBlockBundle\Model;
 
+use Neutron\LayoutBundle\Model\Widget\WidgetInstanceInterface;
+
 use Neutron\Bundle\FormBundle\Model\MultiSelectSortableInterface;
 
-interface PageBlockInterface
+interface PageBlockInterface extends WidgetInstanceInterface
 {
     
     const TYPE_SORTABLE = 'type.sortable';
