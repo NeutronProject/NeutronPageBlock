@@ -19,6 +19,41 @@ use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 
 class PageBlockRepository extends TranslationRepository
 {
+    public function getInstancesQueryBuilder()
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb
+            ->select('b.id, b.uniqueName, b.title')
+            ->where('b.enabled = ?1')
+            ->orderBy('b.title', 'ASC')
+            ->setParameters(array(
+                1 => true        
+            ))
+        ;
+        
+        return $qb;
+    }
+    
+    public function getInstancesQuery($locale)
+    {
+        $query = $this->getInstancesQueryBuilder()->getQuery();
+        $query->setHint(
+            Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $locale
+        );
+        
+        return $query;
+    }
+    
+    public function getInstances($locale)
+    {
+        return $this->getInstancesQuery($locale)->getArrayResult();
+    }
+    
     public function getPageBlockManagementQueryBuilder()
     {
         $qb = $this->createQueryBuilder('b');

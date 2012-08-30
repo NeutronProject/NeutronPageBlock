@@ -37,6 +37,7 @@ class PageBlockWidget
             ->setManagerService($this->managerService)
             ->enablePluginAware(true)
             ->setDisplayOn(array('neutron.plugin.page'))
+            ->setAllowedPanels(array('panel_sidebar_right'))
         ;
         
         $this->dispatcher->dispatch(
