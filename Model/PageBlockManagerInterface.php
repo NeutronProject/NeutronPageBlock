@@ -16,4 +16,5 @@ interface PageBlockManagerInterface extends WidgetManagerInterface
     public function findOneBy(array $criteria);
     
     public function getQueryBuilderForPageBlockManagementDataGrid();
+    
 }

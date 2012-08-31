@@ -50,8 +50,12 @@ class GeneralType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('uniqueName', 'text', array(
-                'label' => 'form.iniqueName',
+            ->add('name', 'text', array(
+                'label' => 'form.name',
+                'translation_domain' => 'NeutronPageBlockBundle'
+            ))
+            ->add('label', 'text', array(
+                'label' => 'form.label',
                 'translation_domain' => 'NeutronPageBlockBundle'
             ))
             ->add('title', 'text', array(

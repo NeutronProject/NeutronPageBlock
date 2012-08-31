@@ -9,21 +9,22 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use Neutron\LayoutBundle\Widget\WidgetFactoryInterface;
 
+use Neutron\LayoutBundle\Model\Widget\WidgetManagerInterface;
+
 class PageBlockWidget
 {
     protected $dispatcher;
     
     protected $factory; 
     
-    protected $managerService;
-
+    protected $manager;
 
     public function __construct(EventDispatcherInterface $dispatcher, WidgetFactoryInterface $factory, 
-            $managerService)
+        WidgetManagerInterface$manager)
     {
         $this->dispatcher = $dispatcher;
         $this->factory = $factory;
-        $this->managerService = $managerService;
+        $this->manager = $manager;
     }
     
     public function build()
@@ -34,10 +35,11 @@ class PageBlockWidget
             ->setDescription('widget.block_page.desc')
             ->setAdministrationRoute('neutron_page_block.administration')
             ->setFrontController('NeutronPageBlockBundle:Frontend\Default:index')
-            ->setManagerService($this->managerService)
+            ->setManager($this->manager)
             ->enablePluginAware(true)
-            ->setDisplayOn(array('neutron.plugin.page'))
-            ->setAllowedPanels(array('panel_sidebar_right'))
+            ->setAllowedPlugins(array('neutron.plugin.page'))
+            ->enablePanelAware(true)
+            ->setAllowedPanels(array('page_panel_sidebar_right', 'page_panel_static'))
         ;
         
         $this->dispatcher->dispatch(

@@ -20,7 +20,7 @@ class GeneralTypeSubscriber implements EventSubscriberInterface
         }
         
         if ($data->getId()){
-            $form->remove('uniqueName');
+            $form->remove('name');
         }
     }
     

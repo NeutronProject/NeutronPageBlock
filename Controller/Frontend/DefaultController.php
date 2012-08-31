@@ -15,11 +15,11 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 class DefaultController extends ContainerAware
 {
     
-    public function indexAction($id)
+    public function indexAction($identifier)
     {         
         $manager = $this->container->get('neutron_page_block.manager');
         
-        $block = $manager->getPageBlock($id, $this->container->get('request')->getLocale());
+        $block = $manager->getPageBlock($identifier, $this->container->get('request')->getLocale());
         
         if (!$block || false === $this->isAllowed($block)){
             return new Response();

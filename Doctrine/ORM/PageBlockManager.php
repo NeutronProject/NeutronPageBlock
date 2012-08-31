@@ -50,19 +50,24 @@ class PageBlockManager implements PageBlockManagerInterface
         return $this->repository->findOneBy($criteria);
     }
     
-    public function getQueryBuilderForPageBlockManagementDataGrid()
+    public function get($identifier)
     {
-        return $this->repository->getPageBlockManagementQueryBuilder();
+        return $this->findOneBy(array('name' => $identifier));
     }
     
     public function getInstances($locale)
     {
         return $this->repository->getInstances($locale);
     }
-    
-    public function getPageBlock($id, $locale)
+
+    public function getQueryBuilderForPageBlockManagementDataGrid()
     {
-        return $this->repository->getPageBlock($id, $locale);
+        return $this->repository->getPageBlockManagementQueryBuilder();
+    }
+ 
+    public function getPageBlock($identifier, $locale)
+    {
+        return $this->repository->getPageBlock($identifier, $locale);
     }
     
 }

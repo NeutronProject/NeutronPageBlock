@@ -58,8 +58,9 @@ class PageBlockManagement
         )
             ->setAutoWidth(true)
             ->setColNames(array(
+                $this->translator->trans('grid.page_block_management.column.label',  array(), 'NeutronPageBlockBundle'),
                 $this->translator->trans('grid.page_block_management.column.title',  array(), 'NeutronPageBlockBundle'),
-                $this->translator->trans('grid.page_block_management.column.unique_name',  array(), 'NeutronPageBlockBundle'),
+                $this->translator->trans('grid.page_block_management.column.name',  array(), 'NeutronPageBlockBundle'),
                 $this->translator->trans('grid.page_block_management.column.type',  array(), 'NeutronPageBlockBundle'),
                 $this->translator->trans('grid.page_block_management.column.enabled',  array(), 'NeutronPageBlockBundle'),
   
@@ -67,11 +68,15 @@ class PageBlockManagement
             ))
             ->setColModel(array(
                 array(
+                    'name' => 'b.label', 'index' => 'b.label', 'width' => 200, 
+                    'align' => 'left', 'sortable' => true, 'search' => true,
+                ), 
+                array(
                     'name' => 'b.title', 'index' => 'b.title', 'width' => 200, 
                     'align' => 'left', 'sortable' => true, 'search' => true,
                 ), 
                 array(
-                    'name' => 'b.uniqueName', 'index' => 'b.uniqueName', 'width' => 200, 
+                    'name' => 'b.uniqueName', 'index' => 'b.name', 'width' => 200, 
                     'align' => 'left', 'sortable' => true, 'search' => true,
                 ),  
                 array(

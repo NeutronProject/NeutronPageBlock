@@ -23,9 +23,9 @@ class PageBlockRepository extends TranslationRepository
     {
         $qb = $this->createQueryBuilder('b');
         $qb
-            ->select('b.id, b.uniqueName, b.title')
+            ->select('b.name as identifier, b.label')
             ->where('b.enabled = ?1')
-            ->orderBy('b.title', 'ASC')
+            ->orderBy('b.label', 'ASC')
             ->setParameters(array(
                 1 => true        
             ))
@@ -59,23 +59,23 @@ class PageBlockRepository extends TranslationRepository
         $qb = $this->createQueryBuilder('b');
         
         $qb
-            ->select('b.id, b.title, b.uniqueName, b.type, b.enabled')
+            ->select('b.id, b.label, b.title, b.name, b.type, b.enabled')
         ;
         
         return $qb;
     }
     
-    public function getPageBlockQueryBuilder($id)
+    public function getPageBlockQueryBuilder($name)
     {
         $qb = $this->createQueryBuilder('b');
         $qb
             ->select('b, r, p')
             ->join('b.pageReferences', 'r')
             ->join('r.reference', 'p')
-            ->where('b.id = ?1 AND b.enabled = ?2 AND r.isActive = ?3')
+            ->where('b.name = ?1 AND b.enabled = ?2 AND r.isActive = ?3')
             ->orderBy('r.position', 'ASC')
             ->setParameters(array(
-                1 => $id,
+                1 => $name,
                 2 => true,
                 3 => true        
            ))
@@ -84,9 +84,9 @@ class PageBlockRepository extends TranslationRepository
         return $qb;
     }
     
-    public function getPageBlockQuery($id, $locale)
+    public function getPageBlockQuery($name, $locale)
     {
-        $query = $this->getPageBlockQueryBuilder($id)->getQuery();
+        $query = $this->getPageBlockQueryBuilder($name)->getQuery();
         $query->setHint(
             Query::HINT_CUSTOM_OUTPUT_WALKER, 
             'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
@@ -99,8 +99,8 @@ class PageBlockRepository extends TranslationRepository
         return $query;
     }
     
-    public function getPageBlock($id, $locale)
+    public function getPageBlock($name, $locale)
     {
-        return $this->getPageBlockQuery($id, $locale)->getSingleResult();
+        return $this->getPageBlockQuery($name, $locale)->getOneOrNullResult();
     }
 }

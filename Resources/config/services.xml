@@ -23,7 +23,7 @@
         <service id="neutron_page_block.widget.builder" class="%neutron_page_block.widget.builder.class%">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="neutron_layout.widget.factory" />
-            <argument>neutron_page_block.manager</argument>
+            <argument type="service" id="neutron_page_block.manager" />
         </service>
         
         
