@@ -39,7 +39,19 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('manager')->defaultValue('neutron_page_block.manager.default')->end()
                 ->scalarNode('block_class')->defaultValue('Neutron\Widget\PageBlockBundle\Entity\PageBlock')->end()
                 ->scalarNode('block_reference_class')->defaultValue('Neutron\Widget\PageBlockBundle\Entity\PageBlockReference')->end()
-                ->scalarNode('template')->defaultValue('NeutronPageBlockBundle:Frontend\Default:index.html.twig')->end()
+                ->arrayNode('templates')
+                ->defaultValue(array(
+                    'NeutronPageBlockBundle:Frontend\Default:index.html.twig' => 'template.standard'
+                ))
+                ->validate()
+                    ->ifTrue(function($v){
+                        return empty($v);
+                    })
+                    ->thenInvalid('You should provide at least one template.')
+                ->end()
+                ->useAttributeAsKey('name')
+                    ->prototype('scalar')
+                ->end()
     
             ->end()
         ;

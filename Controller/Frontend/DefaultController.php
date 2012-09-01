@@ -26,7 +26,7 @@ class DefaultController extends ContainerAware
         }
         
         $template = $this->container->get('templating')
-            ->render($this->container->getParameter('neutron_page_block.template'), array(
+            ->render($block->getTemplate(), array(
                 'block' => $block
             )
         );

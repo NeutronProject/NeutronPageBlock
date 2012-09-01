@@ -34,7 +34,7 @@ class NeutronPageBlockExtension extends Extension
         $container->setAlias('neutron_page_block.manager', $config['manager']);
         $container->setParameter('neutron_page_block.block_class', $config['block_class']);
         $container->setParameter('neutron_page_block.block_reference_class', $config['block_reference_class']);
-        $container->setParameter('neutron_page_block.template', $config['template']);
+        $container->setParameter('neutron_page_block.templates', $config['templates']);
 
         $container->setAlias('neutron_page_block.form.handler.page_block', $config['form']['handler']);
         $container->setParameter('neutron_page_block.form.type.page_block', $config['form']['type']);

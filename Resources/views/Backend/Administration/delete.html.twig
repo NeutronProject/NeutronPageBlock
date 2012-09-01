@@ -12,8 +12,8 @@
                 		<td class="actions">{{ record.title }}</td>
                 	</tr>            
                 	<tr>
-                		<td><strong>{{ 'form.uniqueName'|trans({}, 'NeutronPageBlockBundle') }}</strong></td>
-                		<td class="actions">{{ record.uniqueName }}</td>
+                		<td><strong>{{ 'form.identifier'|trans({}, 'NeutronPageBlockBundle') }}</strong></td>
+                		<td class="actions">{{ record.identifier }}</td>
                 	</tr>            
                 	<tr>
                 		<td><strong>{{ 'form.enabled'|trans({}, 'NeutronPageBlockBundle') }}</strong></td>
@@ -27,7 +27,7 @@
             <div class="actions">
                 <div class="controls">
                     <form action="{{ app.request.requestUri }}" method="POST">
-                        <button type="submit"  style="float:right; margin:5px;" type="submit" class="btn" name="operation" value="delete">{{ 'page.delete'|trans({}, 'NeutronPageBlockBundle') }}</button>
+                        <button type="submit"  style="float:right; margin:5px;" type="submit" class="btn" name="operation" value="delete">{{ 'block.delete'|trans({}, 'NeutronPageBlockBundle') }}</button>
                         <a href="{{ path('neutron_page_block.administration') }}" style="float:right; margin:5px;" class="btn action" >{{ 'form.back'|trans({}, 'NeutronPageBlockBundle') }}</a>
                         
                     </form>   

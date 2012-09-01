@@ -36,10 +36,13 @@ class GeneralType extends AbstractType
     
     protected $subscriber;
     
-    public function __construct($pageBlockClass, EventSubscriberInterface $subscriber)
+    protected $templates;
+    
+    public function __construct($pageBlockClass, EventSubscriberInterface $subscriber, array $templates)
     {
         $this->pageBlockClass = $pageBlockClass;
         $this->subscriber = $subscriber;
+        $this->templates = $templates;
         
     }
     
@@ -50,24 +53,20 @@ class GeneralType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
-                'label' => 'form.name',
-                'translation_domain' => 'NeutronPageBlockBundle'
-            ))
-            ->add('label', 'text', array(
-                'label' => 'form.label',
-                'translation_domain' => 'NeutronPageBlockBundle'
-            ))
             ->add('title', 'text', array(
                 'label' => 'form.title',
                 'translation_domain' => 'NeutronPageBlockBundle'
             ))
-            ->add('type', 'choice', array(
-                'choices' => PageBlock::getTypes(),
+            ->add('identifier', 'text', array(
+                'label' => 'form.identifier',
+                'translation_domain' => 'NeutronPageBlockBundle'
+            ))
+            ->add('template', 'choice', array(
+                'choices' => $this->templates,
                 'multiple' => false,
                 'expanded' => false,
                 'attr' => array('class' => 'uniform'),
-                'label' => 'form.type',
+                'label' => 'form.template',
                 'empty_value' => 'form.empty_value',
                 'translation_domain' => 'NeutronPageBlockBundle'
             ))

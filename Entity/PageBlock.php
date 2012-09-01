@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Neutron\Widget\PageBlockBundle\Entity\Repository\PageBlockRepository")
  * 
  */
-class PageBlock implements PageBlockInterface 
+class PageBlock implements PageBlockInterface  
 {
     /**
      * @var integer 
@@ -39,16 +39,9 @@ class PageBlock implements PageBlockInterface
     /**
      * @var string 
      *
-     * @ORM\Column(type="string", name="name", length=50, nullable=false, unique=true)
+     * @ORM\Column(type="string", name="widget_identifier", length=50, nullable=false, unique=true)
      */
-    protected $name;
-    
-    /**
-     * @var string 
-     * @Gedmo\Translatable
-     * @ORM\Column(type="string", name="label", length=35, nullable=false, unique=false)
-     */
-    protected $label;
+    protected $identifier;
     
     /**
      * @var string 
@@ -61,9 +54,9 @@ class PageBlock implements PageBlockInterface
     /**
      * @var string 
      *
-     * @ORM\Column(type="string", name="block_type", length=50, nullable=false, unique=false)
+     * @ORM\Column(type="string", name="template", length=255, nullable=false, unique=false)
      */
-    protected $type;
+    protected $template;
     
     /**
      * @var boolean 
@@ -88,24 +81,20 @@ class PageBlock implements PageBlockInterface
         return $this->id;
     }
     
-    public function setName($name)
+    public function setIdentifier($identifier)
     {
-        $this->name = (string) $name;
+        $this->identifier = (string) $identifier;
     }
     
-    public function getName()
+    public function getIdentifier()
     {
-        return $this->name;
+        return $this->identifier;
     }
-    
-    public function setLabel($label)
-    {
-        $this->label = (string) $label;
-    }
+   
     
     public function getLabel()
     {
-        return $this->label;
+        return $this->title;
     }
     
     public function setTitle($title)
@@ -116,29 +105,16 @@ class PageBlock implements PageBlockInterface
     public function getTitle()
     {
         return $this->title;
+    }    
+    
+    public function setTemplate($template)
+    {
+        $this->template = (string) $template;
     }
     
-    public function setType($type)
+    public function getTemplate()
     {
-        if (!in_array($type, self::getTypes())){
-            throw new \InvalidArgumentException(
-                sprintf('PageBlock type "%s" is not valid', $type)
-            );
-        }
-        
-        $this->type = (string) $type;
-    }
-    
-    public function getType()
-    {
-        return $this->type;
-    }
-    
-    public static function getTypes()
-    {
-        return array(
-            self::TYPE_SORTABLE => self::TYPE_SORTABLE
-        );
+        return $this->template;
     }
     
     public function setEnabled($bool)

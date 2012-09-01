@@ -7,16 +7,16 @@
     <class name="Neutron\Widget\PageBlockBundle\Entity\PageBlock">   
 
         <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
-            <option name="fields">name</option>
-            <option name="message">name.already_used</option>
+            <option name="fields">identifier</option>
+            <option name="message">identifier.already_used</option>
             <option name="groups">
                 <value>create</value>
             </option>
         </constraint>
         
-        <property name="name">
+        <property name="identifier">
         	<constraint name="NotBlank">
-                <option name="message">name.blank</option>
+                <option name="message">identifier.blank</option>
                 <option name="groups">
                     <value>create</value>
                 </option>
@@ -24,7 +24,7 @@
             
             <constraint name="MaxLength">
                 <option name="limit">50</option>
-                <option name="message">name.long</option>
+                <option name="message">identifier.long</option>
                 <option name="groups">
                     <value>create</value>
                 </option>
@@ -33,34 +33,8 @@
             <constraint name="Regex">
                 <option name="pattern">/^[A-Z_]*$/</option>
                 <option name="match">true</option>
-                <option name="message">uniqueName.alpha</option>
+                <option name="message">identifier.alpha</option>
                 <option name="groups">create</option>
-            </constraint>
-        </property>
-	     
-        <property name="label">
-        	<constraint name="NotBlank">
-                <option name="message">label.blank</option>
-                <option name="groups">
-                    <value>create</value>
-                    <value>update</value>
-                </option>
-            </constraint>
-            <constraint name="MinLength">
-                <option name="limit">2</option>
-                <option name="message">label.short</option>
-                <option name="groups">
-                    <value>create</value>
-                    <value>update</value>
-                </option>
-            </constraint>
-            <constraint name="MaxLength">
-                <option name="limit">35</option>
-                <option name="message">label.long</option>
-                <option name="groups">
-                    <value>create</value>
-                    <value>update</value>
-                </option>
             </constraint>
         </property>
 	     
@@ -90,9 +64,9 @@
             </constraint>
         </property>
         
-        <property name="type">
+        <property name="template">
         	<constraint name="NotBlank">
-                <option name="message">type.blank</option>
+                <option name="message">template.blank</option>
                 <option name="groups">
                     <value>create</value>
                     <value>update</value>

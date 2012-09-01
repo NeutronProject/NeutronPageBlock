@@ -71,7 +71,7 @@ class AdministrationController extends ContainerAware
         $template = $this->container->get('templating')
             ->render('NeutronPageBlockBundle:Backend\Administration:update.html.twig', array(
                 'form' => $form->createView()
-           )
+            )
         );
         
         return  new Response($template);

@@ -113,6 +113,7 @@
         <service id="neutron_page_block.form.type.page_block.general" class="%neutron_page_block.form.type.page_block.general.class%">
 		    <argument>%neutron_page_block.block_class%</argument>
 		    <argument type="service" id="neutron_page_block.form.event_subscriber.page_block.general" />
+		    <argument>%neutron_page_block.templates%</argument>    
 		    <tag name="form.type" alias="neutron_page_block_general" />
 		</service>
         

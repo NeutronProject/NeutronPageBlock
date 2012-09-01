@@ -8,15 +8,13 @@ use Neutron\Bundle\FormBundle\Model\MultiSelectSortableInterface;
 interface PageBlockInterface extends WidgetInstanceInterface
 {
     
-    const TYPE_SORTABLE = 'type.sortable';
-    
     public function setTitle($title);
     
     public function getTitle();
     
-    public function setType($type);
+    public function setTemplate($template);
     
-    public function getType();
+    public function getTemplate();
     
     public function setEnabled($bool);
     
