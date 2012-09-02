@@ -52,7 +52,7 @@ class PageBlockManager implements PageBlockManagerInterface
     
     public function get($identifier)
     {
-        return $this->findOneBy(array('name' => $identifier));
+        return $this->findOneBy(array('identifier' => $identifier));
     }
     
     public function getInstances($locale)
