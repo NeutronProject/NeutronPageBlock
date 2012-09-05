@@ -50,7 +50,7 @@ class PageBlockReference implements MultiSelectSortableInterface
     protected $isActive = false;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Neutron\Plugin\PageBundle\Entity\Page")
+     * @ORM\ManyToOne(targetEntity="Neutron\Plugin\PageBundle\Model\PageInterface")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $reference;

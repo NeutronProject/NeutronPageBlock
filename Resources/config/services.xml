@@ -6,7 +6,6 @@
 
     <parameters>
         <parameter key="neutron_page_block.widget.builder.class">Neutron\Widget\PageBlockBundle\PageBlockWidget</parameter>
-        <parameter key="neutron_page_block.event_listener.main_menu.class">Neutron\Widget\PageBlockBundle\EventListener\MainMenuListener</parameter>
         <parameter key="neutron_page_block.controller.backend.administration.default.class">Neutron\Widget\PageBlockBundle\Controller\Backend\AdministrationController</parameter>
         <parameter key="neutron_page_block.controller.frontend.default.class">Neutron\Widget\PageBlockBundle\Controller\Frontend\DefaultController</parameter>
         <parameter key="neutron_page_block.datagrid.page_block_management.class">Neutron\Widget\PageBlockBundle\DataGrid\PageBlockManagement</parameter>
@@ -33,11 +32,6 @@
         	factory-method="build"
         >
         	<tag name="neutron.widget" alias="neutron.widget.page_block" />
-        </service>
-        
-        <service id="neutron_page_block.event_listener.main_menu" class="%neutron_page_block.event_listener.main_menu.class%">
-        	<argument type="service" id="neutron_page_block.widget" />
-        	<tag name="kernel.event_listener" event="neutron_admin.onMenuConfigure" method="onMenuConfigure"/> 
         </service>
 	
 	    <service id="neutron_page_block.controller.backend.administration.default" class="%neutron_page_block.controller.backend.administration.default.class%">
